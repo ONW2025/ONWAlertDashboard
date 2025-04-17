@@ -92,6 +92,21 @@
   border-bottom: 1px solid #0f0;
   padding: 4px 6px;
 }
+.md-image {
+      display: none;
+      margin-top: 10px;
+      max-width: 100%;
+      border: 1px solid #0f0;
+    }
+    .md-toggle {
+      color: #0ff;
+      cursor: pointer;
+      display: inline-block;
+      margin-left: 10px;
+    }
+    .md-title {
+      color: #0f0;
+    }
   </style>
 </head>
 <body>
@@ -517,12 +532,52 @@ async function fetchOhioMDs() {
         ohioItems.forEach(item => {
           const title = item.querySelector("title")?.textContent || "SPC MD";
           const link = item.querySelector("link")?.textContent || "#";
+          const desc = item.querySelector("description")?.textContent || "";
+          const pubDate = item.querySelector("pubDate")?.textContent;
+          const issueTime = pubDate ? new Date(pubDate).toLocaleString("en-US", {
+            timeZone: "America/New_York",
+            weekday: "short",
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+            month: "short",
+            day: "numeric"
+          }) : "";
+
+          const probMatch = desc.match(/Probability of Watch Issuance\.*?(\d+\s*percent)/i);
+          const probability = probMatch ? probMatch[1] : "N/A";
+
+          const mdMatch = link.match(/(\d{4})\.html$/);
+          const mdNumber = mdMatch ? mdMatch[1] : null;
+          const imageUrl = mdNumber ? `https://www.spc.noaa.gov/products/md/mcd${mdNumber}_full.png` : null;
+
           const li = document.createElement("li");
           const a = document.createElement("a");
           a.href = link;
-          a.textContent = title;
+          a.textContent = `${title} (${issueTime}, Watch Probability: ${probability})`;
+          a.className = "md-title";
           a.target = "_blank";
           li.appendChild(a);
+
+          if (imageUrl) {
+            const toggle = document.createElement("span");
+            toggle.textContent = "[+ Show Map]";
+            toggle.className = "md-toggle";
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            img.alt = `MD ${mdNumber} Image`;
+            img.className = "md-image";
+
+            toggle.addEventListener("click", () => {
+              const showing = img.style.display === "block";
+              img.style.display = showing ? "none" : "block";
+              toggle.textContent = showing ? "[+ Show Map]" : "[– Hide Map]";
+            });
+
+            li.appendChild(toggle);
+            li.appendChild(img);
+          }
+
           list.appendChild(li);
         });
       } catch (err) {
@@ -530,6 +585,9 @@ async function fetchOhioMDs() {
         list.innerHTML = `<li>Error loading mesoscale discussions</li>`;
       }
     }
+
+    fetchOhioMDs();
+    setInterval(fetchOhioMDs, 5 * 60 * 1000);
 
     fetchOhioMDs();
     setInterval(fetchOhioMDs, 5 * 60 * 1000);
@@ -712,15 +770,6 @@ async function fetchLSRs() {
       setInterval(() => fetchOhioAlerts(false), 30000);
     }
 
-    /* async function updateOhioMDs() {
-    const allMDs = await fetchMesoscaleDiscussions();
-    const ohioMDs = filterOhioMDs(allMDs);
-    displayOhioMDs(ohioMDs);
-  } */
-
-/* // Call this function periodically or on page load
-    updateOhioMDs();
-    setInterval(updateOhioMDs, 5 * 60 * 1000); // Refresh every 5 minutes */
 
     fetchLSRs();
     setInterval(fetchLSRs, 5 * 60 * 1000); // Refresh every 5 minutes
@@ -735,5 +784,6 @@ async function fetchLSRs() {
       startAlertLoop();
     }
   </script>
+  <footer>© 2025 Ohio News and Weather</footer>
 </body>
 </html>
