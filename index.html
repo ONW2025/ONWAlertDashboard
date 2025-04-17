@@ -97,8 +97,8 @@
 <body>
 
   <div class="section status">
-    <div>🕒 Last Checked: <span id="lastChecked">Loading...</span></div>
-    <div>🔊 Last Alert Spoken: <span id="lastAlert">None yet</span></div>
+    <div style="font-size: 18px;">🕒 Last Checked: <span id="lastChecked">Loading...</span></div>
+    <div style="font-size: 18px;">🔊 Last Alert Spoken: <span id="lastAlert">None yet</span></div>
     <select id="testType">
       <option value="Tornado Warning">Tornado Warning</option>
       <option value="Severe Thunderstorm Warning">Severe Thunderstorm Warning</option>
@@ -109,14 +109,14 @@
   </div>
 
   <div class="section">
-    <strong>🗣️ Speak These Warnings:</strong><br>
+    <strong style="font-size: 18px;">🗣️ Speak These Warnings:</strong><br>
     <label><input type="checkbox" id="readTornado" checked> Tornado Warnings</label><br>
     <label><input type="checkbox" id="readSevere" checked> Severe Thunderstorm Warnings</label><br>
     <label><input type="checkbox" id="readFlashFlood"> Flash Flood Warnings</label>
   </div>
 
   <div class="section sliders">
-    <strong>🎚 Volume Controls:</strong>
+    <strong style="font-size: 18px;">🎚 Volume Controls:</strong>
     <label>
       🔈 Alert Tone Volume:
       <input type="range" min="0" max="1" step="0.01" id="toneVolumeSlider" value="0.8">
@@ -130,20 +130,21 @@
   </div>
 
   <div class="section alerts">
-    <strong>📋 Active Warnings:</strong>
+    <strong style="font-size: 18px;">📋 Active Warnings:</strong>
     <div id="warningCount"></div>
     <ul id="activeAlerts"><li>Loading...</li></ul>
   </div>
 
   <div class="log section" id="log"></div>
 
-  <!-- <div class="section">
-    <strong>🌀 Active Mesoscale Discussions for Ohio:</strong>
+  <div class="section">
+    <strong style="font-size: 18px;">🌀 Active Mesoscale Discussions for Ohio:</strong>
     <ul id="ohioMDs"><li>Loading...</li></ul>
-  </div> -->
+  </div>
+  <p>-----------------------------------------------------------------------------------------------------------------------------------------------------</p>
 
   <div class="section asos">
-    <strong>💨 Top 10 Wind Gusts in Ohio (Last Hour):</strong>
+    <strong style="font-size: 18px;">💨 Top 10 Wind Gusts in Ohio (Last Hour):</strong>
     <table id="asosTable" border="1" cellspacing="0" cellpadding="5">
       <thead>
         <tr>
@@ -158,9 +159,9 @@
       </tbody>
     </table>
   </div>
-
+<p>-----------------------------------------------------------------------------------------------------------------------------------------------------</p>
   <div class="section lsr">
-    <strong>📌 Local Storm Reports (Past 24 Hours):</strong>
+    <strong style="font-size: 18px;">📌 Local Storm Reports (Past 24 Hours):</strong>
     <table id="lsrTable" border="1" cellspacing="0" cellpadding="5">
       <thead>
         <tr>
@@ -177,9 +178,10 @@
       </tbody>
     </table>
   </div>
+  <p>-----------------------------------------------------------------------------------------------------------------------------------------------------</p>
 
   <div class="section outlooks">
-    <strong>🗺️ SPC Day 1 Outlook – Ohio:</strong><br>
+    <strong style="font-size: 18px;">🗺️ SPC Day 1 Outlook – Ohio:</strong><br>
     <img src="https://www.spc.noaa.gov/partners/outlooks/state/images/OH_swody1.png" alt="Day 1 Outlook" style="width: 100%; max-width: 600px;">
     <img src="https://www.spc.noaa.gov/partners/outlooks/state/images/OH_swody1_TORN.png" alt="Day 1 Outlook" style="width: 100%; max-width: 600px;">
     <img src="https://www.spc.noaa.gov/partners/outlooks/state/images/OH_swody1_WIND.png" alt="Day 1 Outlook" style="width: 100%; max-width: 600px;">
@@ -489,6 +491,48 @@ async function fetchOhioAlerts(isManual = false, typeOverride = "Tornado Warning
     }
   }, 1000);
 }
+async function fetchOhioMDs() {
+      const list = document.getElementById('ohioMDs');
+      list.innerHTML = '<li>Loading...</li>';
+
+      try {
+        const res = await fetch("https://www.spc.noaa.gov/products/spcmdrss.xml");
+        const text = await res.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, "application/xml");
+
+        const items = Array.from(xml.querySelectorAll("item"));
+        const ohioItems = items.filter(item => {
+          const title = item.querySelector("title")?.textContent || "";
+          const desc = item.querySelector("description")?.textContent || "";
+          return title.includes("OH") || desc.includes("OH") || desc.includes("Ohio") || title.includes("Ohio");
+        });
+
+        if (ohioItems.length === 0) {
+          list.innerHTML = '<li>No mesoscale discussions currently involving Ohio.</li>';
+          return;
+        }
+
+        list.innerHTML = "";
+        ohioItems.forEach(item => {
+          const title = item.querySelector("title")?.textContent || "SPC MD";
+          const link = item.querySelector("link")?.textContent || "#";
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = link;
+          a.textContent = title;
+          a.target = "_blank";
+          li.appendChild(a);
+          list.appendChild(li);
+        });
+      } catch (err) {
+        console.error("Error loading MDs:", err);
+        list.innerHTML = `<li>Error loading mesoscale discussions</li>`;
+      }
+    }
+
+    fetchOhioMDs();
+    setInterval(fetchOhioMDs, 5 * 60 * 1000);
 
 async function fetchGusts() {
   const tableBody = document.querySelector("#asosTable tbody");
