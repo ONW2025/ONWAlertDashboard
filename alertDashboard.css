@@ -1,0 +1,157 @@
+body {
+    background: #000;
+    color: #0f0;
+    font-family: monospace;
+    padding: 20px;
+  }
+  .section {
+    margin-bottom: 20px;
+  }
+  .log {
+    max-height: 150px;
+    overflow-y: auto;
+    border-top: 1px solid #0f0;
+    padding-top: 10px;
+  }
+  ul {
+    padding-left: 20px;
+  }
+  button {
+    background: #111;
+    color: #0f0;
+    border: 1px solid #0f0;
+    font-family: monospace;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #0f0;
+    color: #000;
+  }
+  input[type=range] {
+    width: 200px;
+  }
+  .sliders label {
+    display: block;
+    margin-top: 10px;
+  }
+  .tornado {
+    color: red;
+    font-weight: bold;
+  }
+  .thunderstorm {
+    color: yellow;
+    font-weight: bold;
+  }
+  .flashflood {
+color: #b94646;
+font-weight: bold;
+}
+
+.mesoanalysis{
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+.mesoanalysis iframe{
+    width: 100%;
+    height: 900px;
+}
+
+.lsr table {
+width: 100%;
+border-collapse: collapse;
+color: #0f0;
+background: #111;
+font-family: monospace;
+font-size: 14px;
+}
+
+.lsr th {
+background: #222;
+color: #0f0;
+border-bottom: 1px solid #0f0;
+}
+
+.lsr td {
+border-bottom: 1px solid #0f0;
+padding: 4px 6px;
+}
+.asos table {
+width: 100%;
+border-collapse: collapse;
+color: #0f0;
+background: #111;
+font-family: monospace;
+font-size: 14px;
+}
+
+.asos th {
+background: #222;
+color: #0f0;
+border-bottom: 1px solid #0f0;
+}
+
+.asos td {
+border-bottom: 1px solid #0f0;
+padding: 4px 6px;
+}
+.md-image {
+    display: none;
+    margin-top: 10px;
+    max-width: 100%;
+    border: 1px solid #0f0;
+  }
+  .md-toggle {
+    color: #0ff;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 10px;
+  }
+  .md-title {
+    color: #0f0;
+  }
+  .collapsible-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+cursor: pointer;
+color: #0f0;
+margin-bottom: 5px;
+}
+
+.toggle-btn {
+color: #0ff;
+font-size: 14px;
+margin-left: 10px;
+}
+
+.collapsible-content {
+display: none;
+margin-top: 10px;
+}
+
+.gust-advisory {
+color: #D2B48C;
+font-weight: bold;
+}
+
+.gust-severe {
+color: yellow;
+font-weight: bold;
+}
+
+.gust-significant {
+color: red;
+font-weight: bold;
+}
+
+.footer{
+    max-width: 100%;
+    text-align: center;
+}
+
+.footer img{
+    width: 10%;
+    height: auto;
+}
