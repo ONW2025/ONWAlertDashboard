@@ -34,6 +34,13 @@ async function fetchWithRetryAndTimeout(url, options = {}, retries = 3, delay = 
   }
   
   setupCollapsibles();
+
+  function toggleSection(headerEl) {
+    const wrapper = headerEl.nextElementSibling;
+    const toggle = headerEl.querySelector('.section-toggle');
+    const isOpen = wrapper.classList.toggle('open');
+    toggle.textContent = isOpen ? '[–]' : '[+]';
+  }
   
   const ugcToCounty = {
     "OHC001": "Adams", "OHC003": "Allen", "OHC005": "Ashland", "OHC007": "Ashtabula",
