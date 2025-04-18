@@ -155,3 +155,23 @@ font-weight: bold;
     width: 10%;
     height: auto;
 }
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid #0f0;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .section-toggle {
+    color: #0ff;
+    font-weight: bold;
+  }
+  .section-content {
+    display: none;
+  }
+  .section-content.open {
+    display: block;
+  }
