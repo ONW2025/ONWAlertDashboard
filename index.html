@@ -49,22 +49,22 @@
 
   <div class="log section" id="log"></div>
 
-  <div class="section">
-    <div class="collapsible-header">
+  <div class="section collapsible-section md">
+    <div class="section-header" onclick="toggleSection(this)">
       <strong style="font-size: 18px;">🌀 Active Mesoscale Discussions for Ohio</strong>
-      <span class="toggle-btn">[+ Expand]</span>
+      <span class="section-toggle">[+]</span>
     </div>
-    <div class="collapsible-content">
+    <div class="section-content" id="ohioMDsWrapper">
       <ul id="ohioMDs"><li>Loading...</li></ul>
     </div>
   </div>
 
-  <div class="section asos">
-    <div class="collapsible-header">
-    <strong style="font-size: 18px;">💨 Top 10 Wind Gusts in Ohio (Last Hour):</strong>
-    <span class="toggle-btn">[+ Expand]</span>
+  <div class="section collapsible-section asos">
+    <div class="section-header" onclick="toggleSection(this)">
+      <strong style="font-size: 18px;">💨 Top 10 Wind Gusts in Ohio (Last Hour)</strong>
+      <span class="section-toggle">[+]</span>
     </div>
-    <div class="collapsible-content">
+    <div class="section-content">
     <table id="asosTable" border="1" cellspacing="0" cellpadding="5">
       <thead>
         <tr>
@@ -80,12 +80,12 @@
     </table>
   </div>
 </div>
-<div class="section lsr">
-  <div class="collapsible-header">
+<div class="section collapsible-section lsr">
+  <div class="section-header" onclick="toggleSection(this)">
     <strong style="font-size: 18px;">📌 Local Storm Reports (Past 24 Hours)</strong>
-    <span class="toggle-btn">[+ Expand]</span>
+    <span class="section-toggle">[+]</span>
   </div>
-  <div class="collapsible-content">
+  <div class="section-content">
     <table id="lsrTable" border="1" cellspacing="0" cellpadding="5">
       <thead>
         <tr>
@@ -104,24 +104,24 @@
   </div>
 </div>
 
-  <div class="section outlooks">
-    <div class="collapsible-header">
-      <strong style="font-size: 18px;">🗺️ SPC Day 1 Outlook – Ohio</strong>
-      <span class="toggle-btn">[+ Expand]</span>
-    </div>
-    <div class="collapsible-content">
+<div class="section collapsible-section">
+  <div class="section-header" onclick="toggleSection(this)">
+    <strong style="font-size: 18px;">🗺️ SPC Day 1 Outlook – Ohio</strong>
+    <span class="section-toggle">[+]</span>
+  </div>
+  <div class="section-content">
     <img src="https://www.spc.noaa.gov/partners/outlooks/state/images/OH_swody1.png" alt="Day 1 Outlook" style="width: 100%; max-width: 600px;">
     <img src="https://www.spc.noaa.gov/partners/outlooks/state/images/OH_swody1_TORN.png" alt="Day 1 Outlook" style="width: 100%; max-width: 600px;">
     <img src="https://www.spc.noaa.gov/partners/outlooks/state/images/OH_swody1_WIND.png" alt="Day 1 Outlook" style="width: 100%; max-width: 600px;">
     <img src="https://www.spc.noaa.gov/partners/outlooks/state/images/OH_swody1_HAIL.png" alt="Day 1 Outlook" style="width: 100%; max-width: 600px;">
   </div>
 </div>
-<div class="section mesoanalysis">
-  <div class="collapsible-header">
+<div class="section collapsible-section mesoanalysis">
+  <div class="section-header" onclick="toggleSection(this)">
     <strong style="font-size: 18px;">🌎 SPC Mesoanalysis</strong>
-    <span class="toggle-btn">[+ Expand]</span>
+    <span class="section-toggle">[+]</span>
     </div>
-    <div class="collapsible-content">
+    <div class="section-content">
       <iframe src="https://www.spc.noaa.gov/exper/mesoanalysis/new/viewsector.php?sector=19"></iframe>
 </div>
 
