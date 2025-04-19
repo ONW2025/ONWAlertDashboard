@@ -418,10 +418,7 @@ async function fetchWithRetryAndTimeout(url, options = {}, retries = 3, delay = 
       }
   
       fetchOhioMDs();
-      setInterval(fetchOhioMDs, 5 * 60 * 1000);
-  
-      fetchOhioMDs();
-      setInterval(fetchOhioMDs, 5 * 60 * 1000);
+      setInterval(fetchOhioMDs, 2 * 60 * 1000);
   
   async function fetchGusts() {
     const tableBody = document.querySelector("#asosTable tbody");
@@ -512,7 +509,7 @@ async function fetchWithRetryAndTimeout(url, options = {}, retries = 3, delay = 
     }
   }
   fetchGusts();
-  setInterval(fetchGusts, 5 * 60 * 1000);
+  setInterval(fetchGusts, 2 * 60 * 1000);
   
   async function fetchLSRs() {
     const tableBody = document.querySelector("#lsrTable tbody");
@@ -579,7 +576,7 @@ async function fetchWithRetryAndTimeout(url, options = {}, retries = 3, delay = 
   
   
       fetchLSRs();
-      setInterval(fetchLSRs, 5 * 60 * 1000); // Refresh every 5 minutes
+      setInterval(fetchLSRs, 2 * 60 * 1000); // Refresh every 5 minutes
   
       if (speechSynthesis.getVoices().length === 0) {
         speechSynthesis.onvoiceschanged = () => {
