@@ -318,25 +318,28 @@ async function fetchWithRetryAndTimeout(url, options = {}, retries = 3, delay = 
       }
   
       function triggerAlertSequence(message, type) {
-    const shouldRead = (
-      (type === "Tornado Warning" && readTornado.checked) ||
-      (type === "Severe Thunderstorm Warning" && readSevere.checked) ||
-      (type === "Flash Flood Warning" && readFlashFlood.checked)
-    );
-  
-    if (!shouldRead) return;
-  
-    if (!muteTone.checked) {
-      tone.volume = parseFloat(toneSlider.value);
-      tone.currentTime = 0;
-      tone.play();
-    }
-    setTimeout(() => {
-      if (!muteVoice.checked) {
-        generateSpeech("Alert. " + message);
-      }
-    }, 1000);
+  const shouldRead = (
+    (type === "Tornado Warning" && readTornado.checked) ||
+    (type === "Severe Thunderstorm Warning" && readSevere.checked) ||
+    (type === "Flash Flood Warning" && readFlashFlood.checked)
+  );
+
+  if (!shouldRead) return;
+
+  const toneElement = type === "Tornado Warning" ? document.getElementById("tornadoTone") : tone;
+
+  if (!muteTone.checked) {
+    toneElement.volume = parseFloat(toneSlider.value);
+    toneElement.currentTime = 0;
+    toneElement.play().catch(e => console.warn("Tone play blocked:", e));
   }
+
+  setTimeout(() => {
+    if (!muteVoice.checked) {
+      generateSpeech("Alert. " + message);
+    }
+  }, 1000);
+}
   async function fetchOhioMDs() {
         const list = document.getElementById('ohioMDs');
         list.innerHTML = '<li>Loading...</li>';
