@@ -574,7 +574,7 @@ async function fetchWithRetryAndTimeout(url, options = {}, retries = 3, delay = 
   
       function startAlertLoop() {
         fetchOhioAlerts(false);
-        setInterval(() => fetchOhioAlerts(false), 30000);
+        setInterval(() => fetchOhioAlerts(false), 5000);
       }
   
   
