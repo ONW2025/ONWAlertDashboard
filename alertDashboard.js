@@ -580,6 +580,36 @@ async function fetchWithRetryAndTimeout(url, options = {}, retries = 3, delay = 
   
       fetchLSRs();
       setInterval(fetchLSRs, 2 * 60 * 1000); // Refresh every 5 minutes
+
+async function loadAFD(site, button) {
+        document.querySelectorAll('.afd-tab').forEach(tab => tab.classList.remove('active'));
+        button.classList.add('active');
+      
+        const content = document.getElementById('afd-content');
+        content.textContent = 'Loading...';
+      
+        const url = `https://forecast.weather.gov/product.php?site=${site}&issuedby=${site}&product=AFD&format=ci&version=1&glossary=1&highlight=off`;
+      
+        try {
+          const res = await fetchWithRetryAndTimeout(url);
+          const html = await res.text();
+      
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const pre = doc.querySelector('pre');
+      
+          if (pre) {
+            content.textContent = pre.textContent.trim();
+          } else {
+            content.textContent = 'Unable to parse discussion.';
+          }
+        } catch (err) {
+          console.error(`AFD Fetch Error for ${site}:`, err);
+          content.textContent = 'Error loading forecast discussion.';
+        }
+      }
+
+      loadAFD('ILN', document.querySelector('.afd-tab.active'));
   
       if (speechSynthesis.getVoices().length === 0) {
         speechSynthesis.onvoiceschanged = () => {
