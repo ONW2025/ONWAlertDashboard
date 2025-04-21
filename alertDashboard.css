@@ -175,3 +175,35 @@ font-weight: bold;
   .section-content.open {
     display: block;
   }
+
+/* *****AFD Styling***** */
+
+  .afd-tabs {
+    margin-bottom: 10px;
+  }
+  
+  .afd-tab {
+    background: #111;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 5px 12px;
+    font-family: monospace;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .afd-tab.active {
+    background: #0f0;
+    color: #000;
+  }
+  
+  .afd-content {
+    background: #111;
+    color: #0f0;
+    padding: 10px;
+    border: 1px solid #0f0;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    font-family: monospace;
+  }
