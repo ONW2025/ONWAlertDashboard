@@ -421,7 +421,7 @@ async function fetchWithRetryAndTimeout(url, options = {}, retries = 3, delay = 
       }
   
       fetchOhioMDs();
-      setInterval(fetchOhioMDs, 2 * 60 * 1000);
+      setInterval(fetchOhioMDs, 1 * 60 * 1000);
   
   async function fetchGusts() {
     const tableBody = document.querySelector("#asosTable tbody");
@@ -574,12 +574,12 @@ async function fetchWithRetryAndTimeout(url, options = {}, retries = 3, delay = 
   
       function startAlertLoop() {
         fetchOhioAlerts(false);
-        setInterval(() => fetchOhioAlerts(false), 5000);
+        setInterval(() => fetchOhioAlerts(false), 10000);
       }
   
   
       fetchLSRs();
-      setInterval(fetchLSRs, 2 * 60 * 1000); // Refresh every 5 minutes
+      setInterval(fetchLSRs, 2 * 60 * 1000); // Refresh every 2 minutes
 
 async function loadAFD(site, button) {
         document.querySelectorAll('.afd-tab').forEach(tab => tab.classList.remove('active'));
